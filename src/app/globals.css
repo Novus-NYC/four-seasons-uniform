@@ -2,11 +2,272 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+:root {
+  --nav-h: 64px;
+  --focus: #1e3fa3;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --nav-h: 76px;
+  }
+}
+
+html,
+body {
   padding: 0;
   margin: 0;
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.nojs-only {
+  display: none;
+}
+html:not(.js) .nojs-only {
+  display: flex;
+}
+html:not(.js) .js-only {
+  display: none;
+}
+@media (min-width: 1024px) {
+  html:not(.js) .nojs-only {
+    display: none;
+  }
+}
+
+[id] {
+  scroll-margin-top: calc(var(--nav-h) + 16px);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.on-dark {
+  --focus: #f7c02b;
+}
+
+::selection {
+  background: #f7c02b;
+  color: #0f1a40;
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply font-sans text-sm font-semibold uppercase tracking-[0.12em];
+  }
+
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg px-5 py-3 font-sans text-[15px] font-semibold leading-none transition-[background-color,color,border-color,transform] duration-200 active:translate-y-px;
+  }
+  .btn-sun {
+    @apply btn bg-sun text-awning-night hover:bg-[#ffd04f];
+  }
+  .btn-blue {
+    @apply btn bg-awning text-white hover:bg-awning-deep;
+  }
+  .btn-ghost-light {
+    @apply btn border border-white/50 text-white hover:border-white hover:bg-white/10;
+  }
+  .btn-ghost {
+    @apply btn border border-awning/30 text-awning hover:border-awning hover:bg-awning-mist;
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 font-semibold text-awning underline decoration-awning/30 decoration-2 underline-offset-4 transition-colors hover:decoration-awning;
+  }
+
+  /* The thin white rule from the awning, used as a section divider motif. */
+  .awning-rule {
+    @apply h-px w-full bg-white/70;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero entrance (CSS only, so it never waits on JavaScript).          */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.7s var(--ease-out) both;
+    animation-delay: var(--d, 0ms);
+  }
+  .photo-settle {
+    animation: settle 1.4s var(--ease-out) both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll reveals. Hidden only when JS is running and motion is OK.    */
+/* A timer in the head script removes the hidden state if JS stalls.   */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not(.reveal-fallback) [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  /* Mask reveals clip the children, never the observed element: Chrome counts a target's own
+     clip-path in IntersectionObserver ratios, so a fully clipped target would never reveal. */
+  html.js:not(.reveal-fallback) [data-reveal="mask"] {
+    opacity: 1;
+    transform: none;
+  }
+  html.js:not(.reveal-fallback) [data-reveal="mask"] > * {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.9s var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  html.js:not(.reveal-fallback) [data-reveal="mask"] img {
+    transform: scale(1.08);
+    transition: transform 1.2s var(--ease-out);
+  }
+  html.js:not(.reveal-fallback) [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+  html.js:not(.reveal-fallback) [data-reveal="mask"].is-in > * {
+    clip-path: inset(0 0 0 0);
+  }
+  html.js:not(.reveal-fallback) [data-reveal="mask"].is-in img {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll story.                                                       */
+/* Static, art-directed panels by default (no JS, reduced motion).     */
+/* Pinned live stage when JS runs and motion is allowed.               */
+/* ------------------------------------------------------------------ */
+.story-stage-wrap {
+  display: none;
+}
+
+/* Keep this query in sync with LIVE_QUERY in story-stage.tsx. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 1024px),
+  (prefers-reduced-motion: no-preference) and (min-height: 520px) {
+  html.js .story-stage-wrap {
+    display: block;
+    position: sticky;
+    top: var(--nav-h);
+    height: calc(100svh - var(--nav-h));
+    z-index: 10;
+    pointer-events: none;
+  }
+  html.js .story-chapters {
+    position: relative;
+    margin-top: calc(-1 * (100svh - var(--nav-h)));
+  }
+  html.js .story-snapshot {
+    display: none;
+  }
+  html.js .story {
+    --story-wrap-h: calc(100svh - var(--nav-h));
+    /* On phones the stage owns the top of the viewport; copy reads below it. */
+    --story-stage-h: clamp(
+      calc(var(--story-wrap-h) * 0.44),
+      calc(var(--story-wrap-h) - 330px),
+      calc(var(--story-wrap-h) * 0.6)
+    );
+  }
+  html.js .story-chapter {
+    min-height: calc(var(--story-wrap-h) * 0.86);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-top: calc(var(--story-stage-h) + 14px);
+  }
+  html.js .story-tail {
+    height: 30svh;
+  }
+  html.js .story-copy {
+    background: #fff;
+    border: 1px solid #dde1ea;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.25rem 1.375rem;
+    box-shadow: 0 10px 30px -18px rgb(15 26 64 / 0.35);
+  }
+
+  @media (min-width: 1024px) {
+    html.js .story {
+      --story-stage-h: var(--story-wrap-h);
+    }
+    html.js .story-chapter {
+      min-height: var(--story-wrap-h);
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 0;
+    }
+    html.js .story-copy {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+      width: 38%;
+      max-width: 27rem;
+    }
+  }
+}
+
+.story-stage-box {
+  height: var(--story-stage-h, 100%);
+}
+
+.story-progress [data-step] {
+  transition:
+    color 0.3s ease,
+    opacity 0.3s ease;
+}
+.story-progress [data-step] .dot {
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s var(--ease-out);
 }

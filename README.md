@@ -1,62 +1,34 @@
-# Purpose
-This repository is the base template that should be used for all future businesses, including basic files such as navbar, footer, and other configs.
+# Four Seasons Uniform
 
-# Business Name
+Website for Four Seasons Uniform, a scrubs, uniform and work shoe shop at 73-19 Roosevelt Ave in Jackson Heights, Queens, under the 7 train. Built on the Novus base template.
 
-Replace this README with business-specific details.
+## Tech stack
 
----
+- Next.js (App Router), TypeScript, Tailwind CSS
+- No animation or 3D libraries. The scroll scene is hand-authored SVG driven by a small rAF loop.
 
-## 🚀 Overview
+## Where things live
 
-Short description of the business and what this website is for.
+- `src/lib/business.ts`: **every business fact** (name, phone, address, hours, policy, brands, colors, reviews, photos). Corrections are one-line edits here. Items marked `CONFIRM` are pending owner review.
+- `src/app/page.tsx`: home. `src/app/pages/{what-we-carry,about,visit}`: subpages.
+- `src/lib/components/scroll-story/`: the home page scroll scene.
+  - `scene.ts`: the scene as a pure function of story time `t` (0 to 3 = the four chapters).
+  - `scene-svg.tsx`: SVG markup, keyed with `data-k` attributes.
+  - `story-stage.tsx`: live pinned stage (eases toward scroll, runs only while visible).
+  - `scroll-story.tsx`: chapters and copy, plus static snapshots for no-JS and reduced motion.
+- `public/images`: self-hosted, optimized WebP photos.
 
-Example:
-"This website serves as the official online presence for [Business Name], showcasing services, contact information, and brand identity."
-
----
-
-## 🛠 Tech Stack
-
-- Next.js (App Router)
-- TypeScript
-- Tailwind CSS
-- Hosted on Vercel
-
----
-
-## 📂 Project Structure
-
-- `src/app` → App Router (homepage, layout, globals)
-- `src/app/pages` → Site pages (About, Contact, etc.)
-- `src/lib/components` → Shared UI components (Navbar/Footer)
-- `public` → Static assets
-
----
-
-## 🧑‍💻 Development
-
-Install dependencies:
+## Development
 
 ```bash
 npm install
-npm install --save-dev @types/react
+npm run dev        # http://localhost:3000
+npm run typecheck
+npm run build
 ```
 
-Run locally:
+## Before launch
 
-```bash
-npm run dev
-```
-
----
-
-## ✏️ Customization Checklist
-
-- [ ] Replace Business Name in navbar + footer
-- [ ] Update metadata in `src/app/layout.tsx`
-- [ ] Replace homepage content (`src/app/page.tsx`)
-- [ ] Update About + Contact pages (`src/app/pages/*`)
-- [ ] Replace favicon + assets in `public/`
-- [ ] Update SEO metadata
-- [ ] (Optional) Update Novus credit link text / URL in the footer
+- Get permission for the Google Maps customer photos in `public/images`, or replace them with owner photos.
+- Resolve every `CONFIRM` note in `src/lib/business.ts`.
+- Set `NEXT_PUBLIC_SITE_URL` to the live domain (used for metadata and structured data).
