@@ -47,7 +47,7 @@ const hexToRgb = (hex: string): RGB => {
 }
 const mix = (a: RGB, b: RGB, u: number): RGB => [lerp(a[0], b[0], u), lerp(a[1], b[1], u), lerp(a[2], b[2], u)]
 const css = (c: RGB) => `rgb(${Math.round(c[0])},${Math.round(c[1])},${Math.round(c[2])})`
-const BLACK: RGB = [10, 16, 40]
+const BLACK: RGB = [46, 32, 40]
 
 export const SWATCHES = business.colors.map((c) => ({ name: c.name, rgb: hexToRgb(c.hex), hex: c.hex }))
 export const SWATCH_X = (i: number) => 300 + (i - (SWATCHES.length - 1) / 2) * 40

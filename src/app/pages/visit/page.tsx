@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import { business, photos } from "@/lib/business"
+import LocationMap from "@/lib/components/location-map"
+import ContactSection from "@/lib/components/contact-section"
 import PageHeader from "@/lib/components/page-header"
 import HoursTable from "@/lib/components/hours-table"
 import OpenStatus from "@/lib/components/open-status"
@@ -73,6 +75,12 @@ export default function VisitPage() {
         </div>
       </PageHeader>
 
+      <section className="bg-paper py-10 sm:py-14" aria-label="Store location map">
+        <div className="container-site">
+          <LocationMap />
+        </div>
+      </section>
+
       {/* Essentials */}
       <section className="bg-white py-14 lg:py-20" aria-label="Hours and getting here">
         <div className="container-site grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
@@ -127,6 +135,8 @@ export default function VisitPage() {
         </div>
       </section>
 
+      <ContactSection />
+
       {/* Policies */}
       <section id="policies" className="border-y border-line bg-paper py-14 lg:py-20" aria-labelledby="policies-title">
         <div className="container-site">
@@ -163,7 +173,7 @@ export default function VisitPage() {
               Common questions
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-muted">Something else? Give us a call.</p>
-            <a href={business.phone.href} className="btn-blue mt-6">
+            <a href={business.phone.href} className="btn-plum mt-6">
               <PhoneIcon className="h-[18px] w-[18px]" />
               Call {business.phone.display}
             </a>

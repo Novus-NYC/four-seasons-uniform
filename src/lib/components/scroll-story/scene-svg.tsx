@@ -15,8 +15,8 @@ type Props = {
 
 type AttrFn = (k: string) => Attrs & { "data-k"?: string }
 
-const INK = "#0f1a40"
-const AWNING = "#1e3fa3"
+const INK = "#2e2028"
+const AWNING = "#59283f"
 const STEEL = "#3b6a62"
 const STEEL_DARK = "#2c524c"
 
@@ -204,7 +204,7 @@ export function BoxFrontParts({ a }: { a: AttrFn }) {
         <path d="M96 -36 L118 22" stroke={INK} strokeWidth="2" fill="none" />
         <circle cx="96" cy="-36" r="4" fill={INK} />
         <g transform="translate(68 20)">
-          <rect width="196" height="100" rx="10" fill="#fff" stroke="#dde1ea" strokeWidth="2" />
+          <rect width="196" height="100" rx="10" fill="#fff" stroke="#e3dcd8" strokeWidth="2" />
           <rect width="196" height="32" rx="10" fill="#f7c02b" />
           <rect y="20" width="196" height="12" fill="#f7c02b" />
           <circle cx="50" cy="0" r="5" fill="#fff" stroke={INK} strokeWidth="2" />
@@ -214,7 +214,7 @@ export function BoxFrontParts({ a }: { a: AttrFn }) {
           <path
             d="M14 53l4 4 7-8M14 79l4 4 7-8"
             fill="none"
-            stroke="#1e3fa3"
+            stroke="#59283f"
             strokeWidth="2.8"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -238,11 +238,11 @@ export function StreetLayer({ id, a }: { id: string; a: AttrFn }) {
     <>
       <defs>
         <linearGradient id={ref("glass")} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#3a5384" />
-          <stop offset="1" stopColor="#1f2d52" />
+          <stop offset="0" stopColor="#75445b" />
+          <stop offset="1" stopColor="#432032" />
         </linearGradient>
         <linearGradient id={ref("sky")} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#dfe8f7" />
+          <stop offset="0" stopColor="#eee5e5" />
           <stop offset="1" stopColor="#f4f1ea" />
         </linearGradient>
       </defs>
@@ -252,14 +252,14 @@ export function StreetLayer({ id, a }: { id: string; a: AttrFn }) {
       <rect x="44" y="96" width="512" height="450" fill="none" stroke="#d2c6b5" strokeWidth="2" />
       {[92, 204, 316, 428].map((x) => (
         <g key={x}>
-          <rect x={x} y="140" width="80" height="62" rx="2" fill="#b7c6de" />
+          <rect x={x} y="140" width="80" height="62" rx="2" fill="#d6c9cc" />
           <rect x={x} y="140" width="80" height="62" rx="2" fill="none" stroke="#fff" strokeWidth="4" />
           <line x1={x + 40} y1="140" x2={x + 40} y2="202" stroke="#fff" strokeWidth="3" />
         </g>
       ))}
 
       {/* Awning */}
-      <rect x="56" y="210" width="488" height="16" rx="6" fill="#2b4fbe" />
+      <rect x="56" y="210" width="488" height="16" rx="6" fill="#75445b" />
       <rect x="56" y="222" width="488" height="98" fill={AWNING} />
       <text x="300" y="262" textAnchor="middle" fontSize="36" fontWeight="900" fill="#fff" letterSpacing="0.5">
         <tspan fill="#f7c02b">F</tspan>our <tspan fill="#ee5a2f">S</tspan>easons
@@ -320,10 +320,10 @@ export function StreetLayer({ id, a }: { id: string; a: AttrFn }) {
         </g>
       </g>
       {/* Door */}
-      <rect x="412" y="336" width="120" height="196" fill="#22314f" />
-      <rect x="420" y="344" width="104" height="188" fill="#3f5a8c" opacity="0.85" />
+      <rect x="412" y="336" width="120" height="196" fill="#392b34" />
+      <rect x="420" y="344" width="104" height="188" fill="#715160" opacity="0.85" />
       <rect x="508" y="420" width="5" height="34" rx="2" fill="#d9dee7" />
-      <rect x="56" y="532" width="488" height="12" fill="#1b2744" />
+      <rect x="56" y="532" width="488" height="12" fill="#382b34" />
 
       {/* Sidewalk */}
       <rect x="-60" y="544" width="720" height="120" fill="#c8ccd3" />

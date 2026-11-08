@@ -1,12 +1,12 @@
 import "./globals.css"
 import type { Metadata, Viewport } from "next"
-import { Figtree, Nunito } from "next/font/google"
+import { Barlow_Condensed, Figtree } from "next/font/google"
 import Navbar from "@/lib/components/navbar"
 import Footer from "@/lib/components/footer"
 import RevealObserver from "@/lib/components/reveal-observer"
 import { business, photos, siteUrl } from "@/lib/business"
 
-const display = Nunito({
+const display = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["700", "800", "900"],
   variable: "--font-display",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#1e3fa3",
+  themeColor: "#f8f5ee",
 }
 
 /** Runs before paint: enables JS-only styles, with a safety net if hydration stalls. */
@@ -77,7 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
-      <body className="flex min-h-screen flex-col bg-white font-sans text-awning-night antialiased">
+      <body className="flex min-h-screen flex-col bg-paper font-sans text-awning-night antialiased">
         <a
           href="#main"
           className="sr-only z-[60] rounded-md bg-sun px-4 py-3 font-semibold text-awning-night focus:not-sr-only focus:fixed focus:left-4 focus:top-4"

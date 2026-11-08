@@ -170,7 +170,7 @@ export default function WhatWeCarryPage() {
                 </li>
               ))}
             </ul>
-            <a href={business.phone.href} className="btn-blue">
+            <a href={business.phone.href} className="btn-plum">
               <PhoneIcon className="h-[18px] w-[18px]" />
               Call {business.phone.display}
             </a>

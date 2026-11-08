@@ -5,7 +5,8 @@ Website for Four Seasons Uniform, a scrubs, uniform and work shoe shop at 73-19 
 ## Tech stack
 
 - Next.js (App Router), TypeScript, Tailwind CSS
-- No animation or 3D libraries. The scroll scene is hand-authored SVG driven by a small rAF loop.
+- Native WebGL cloth animation in the hero, with pointer response, a pause control, reduced-motion support and an SVG fallback. The scroll scene is hand-authored SVG driven by a small rAF loop.
+- Warm ivory, plum and marigold palette with Barlow Condensed and Figtree typography.
 
 ## Where things live
 
@@ -16,6 +17,9 @@ Website for Four Seasons Uniform, a scrubs, uniform and work shoe shop at 73-19 
   - `scene-svg.tsx`: SVG markup, keyed with `data-k` attributes.
   - `story-stage.tsx`: live pinned stage (eases toward scroll, runs only while visible).
   - `scroll-story.tsx`: chapters and copy, plus static snapshots for no-JS and reduced motion.
+- `src/lib/components/hero-fabric.tsx`: tessellated WebGL scrub top and static fallback.
+- `src/lib/components/location-map.tsx`: embedded Google Maps location, used on the home and visit pages.
+- `src/lib/components/contact-{section,form}.tsx`: accessible frontend contact form on the home and visit pages. Intentionally a preview only: validates fields but does not send or store submissions. Connect a delivery service before enabling live submissions.
 - `public/images`: self-hosted, optimized WebP photos.
 
 ## Development

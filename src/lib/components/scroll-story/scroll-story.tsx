@@ -76,7 +76,7 @@ export default function ScrollStory() {
                 <p className="mt-5">
                   <Link
                     href={c.cta.href}
-                    className="btn-blue"
+                    className="btn-plum"
                     {...(c.cta.external ? { target: "_blank", rel: "noreferrer" } : {})}
                   >
                     {c.cta.label}

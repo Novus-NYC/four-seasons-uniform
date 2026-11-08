@@ -297,9 +297,10 @@ export const photos = {
 export type PhotoKey = keyof typeof photos
 
 export const nav = [
-  { href: "/pages/what-we-carry", label: "What We Carry" },
+  { href: "/pages/what-we-carry", label: "What we carry" },
   { href: "/pages/about", label: "About" },
   { href: "/pages/visit", label: "Visit" },
+  { href: "/pages/visit#contact", label: "Contact" },
 ] as const
 
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"

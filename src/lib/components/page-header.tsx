@@ -8,7 +8,7 @@ type Props = {
   aside?: React.ReactNode
 }
 
-/** Subpage opener. Continues the awning blue from the navbar and ends on the awning's white rule. */
+/** Subpage opener. Uses the plum fabric palette and a light divider. */
 export default function PageHeader({ eyebrow, title, lead, children, aside }: Props) {
   return (
     <section className="on-dark bg-awning text-white">

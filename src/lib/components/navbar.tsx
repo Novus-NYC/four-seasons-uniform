@@ -60,12 +60,12 @@ export default function Navbar() {
     }
   }, [open, close])
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
+  const isActive = (href: string) => !href.includes("#") && (pathname === href || pathname.startsWith(`${href}/`))
 
   return (
     <header
-      className={`on-dark sticky top-0 z-50 bg-awning text-white transition-shadow duration-300 ${
-        scrolled || open ? "shadow-[0_6px_20px_-8px_rgb(15_26_64/0.45)]" : ""
+      className={`site-nav sticky top-0 z-50 border-b border-line bg-paper text-awning-night transition-shadow duration-300 ${
+        scrolled || open ? "shadow-[0_6px_20px_-8px_rgb(46_32_40/0.12)]" : ""
       }`}
     >
       <nav aria-label="Main" className="container-site flex h-[var(--nav-h)] items-center justify-between gap-4">
@@ -79,7 +79,7 @@ export default function Navbar() {
               <Link
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
-                className="relative rounded-md px-3.5 py-2 text-[15px] font-semibold text-white/90 transition-colors hover:text-white aria-[current=page]:text-white"
+                className="relative rounded-md px-3.5 py-2 text-[15px] font-semibold text-muted transition-colors hover:text-awning aria-[current=page]:text-awning"
               >
                 {item.label}
                 <span
@@ -92,7 +92,7 @@ export default function Navbar() {
             </li>
           ))}
           <li className="ml-3">
-            <a href={business.phone.href} className="btn-sun min-h-[44px] py-2.5">
+            <a href={business.phone.href} className="btn-plum min-h-[44px] py-2.5">
               <PhoneIcon className="h-[18px] w-[18px]" />
               {business.phone.display}
             </a>
@@ -110,7 +110,7 @@ export default function Navbar() {
           <button
             ref={buttonRef}
             type="button"
-            className="js-only inline-flex h-11 w-11 items-center justify-center rounded-lg text-white hover:bg-white/10"
+            className="js-only inline-flex h-11 w-11 items-center justify-center rounded-lg text-awning-night hover:bg-awning/5"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -122,7 +122,7 @@ export default function Navbar() {
       </nav>
 
       {/* Without JavaScript the menu button cannot open, so phones get a plain link row. */}
-      <ul className="nojs-only container-site flex-wrap gap-x-5 gap-y-1 border-t border-white/15 py-2 text-[15px] font-semibold lg:hidden">
+      <ul className="nojs-only container-site flex-wrap gap-x-5 gap-y-1 border-t border-line py-2 text-[15px] font-semibold lg:hidden">
         {nav.map((item) => (
           <li key={item.href}>
             <Link href={item.href} className="inline-block py-2">
@@ -136,16 +136,16 @@ export default function Navbar() {
         id="mobile-menu"
         ref={panelRef}
         hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] overflow-y-auto border-t border-white/15 bg-awning lg:hidden"
+        className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] overflow-y-auto border-t border-line bg-paper lg:hidden"
       >
         <div className="container-site flex min-h-full flex-col py-6">
           <ul className="flex flex-col">
             {[{ href: "/", label: "Home" }, ...nav].map((item) => (
-              <li key={item.href} className="border-b border-white/15">
+              <li key={item.href} className="border-b border-line">
                 <Link
                   href={item.href}
                   aria-current={pathname === item.href ? "page" : undefined}
-                  className="flex items-center justify-between py-4 font-display text-2xl font-extrabold aria-[current=page]:text-sun"
+                  className="flex items-center justify-between py-4 font-display text-2xl font-extrabold aria-[current=page]:text-awning"
                   onClick={() => close(false)}
                 >
                   {item.label}
@@ -153,8 +153,8 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <div className="mt-8 space-y-1 text-white/85">
-            <p className="font-semibold text-white">{business.address.street}</p>
+          <div className="mt-8 space-y-1 text-muted">
+            <p className="font-semibold text-awning-night">{business.address.street}</p>
             <p>
               {business.address.city}, {business.address.region} {business.address.postalCode}
             </p>
@@ -166,7 +166,7 @@ export default function Navbar() {
               <PhoneIcon className="h-[18px] w-[18px]" />
               Call
             </a>
-            <a href={business.directions.google} target="_blank" rel="noreferrer" className="btn-ghost-light">
+            <a href={business.directions.google} target="_blank" rel="noreferrer" className="btn-ghost">
               <PinIcon className="h-[18px] w-[18px]" />
               Directions
             </a>
